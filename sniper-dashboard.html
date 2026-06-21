@@ -3,138 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foreclosure Sniper</title>
+    <title>Foreclosure Sniper - Premium Wealth Portal</title>
+    
+    <link rel="icon" type="image/png" href="Logo.PNG">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FC Sniper">
+    <link rel="apple-touch-icon" href="Logo.PNG">
+
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Foreclosure%20Sniper%22%2C%22short_name%22%3A%22FC%20Sniper%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23050a07%22%2C%22theme_color%22%3A%22%23050a07%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22Logo.PNG%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D">
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Georgia', 'Inter', serif; }
 
         body {
-            background: #060816; color: white; padding: 24px; min-height: 100vh;
+            background: #050a07; color: #f1f5f3; padding: 40px 24px; min-height: 100vh;
             display: flex; justify-content: center; align-items: flex-start; overflow-x: hidden;
         }
 
-        body::before { content: ''; position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, #f59e0b22, transparent 70%); top: -200px; left: -200px; z-index: -1; }
-        body::after { content: ''; position: fixed; width: 500px; height: 500px; background: radial-gradient(circle, #3b82f622, transparent 70%); bottom: -200px; right: -200px; z-index: -1; }
+        /* Luxury Warm Gold & Deep Emerald Radial Ambient Glows */
+        body::before { content: ''; position: fixed; width: 800px; height: 800px; background: radial-gradient(circle, rgba(212, 175, 55, 0.04), transparent 65%); top: -300px; left: -200px; z-index: -1; }
+        body::after { content: ''; position: fixed; width: 700px; height: 700px; background: radial-gradient(circle, rgba(45, 106, 79, 0.08), transparent 65%); bottom: -200px; right: -200px; z-index: -1; }
 
-        .container { max-width: 800px; width: 100%; margin-top: 20px; }
+        .container { max-width: 900px; width: 100%; }
 
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
-
-        .card { background: rgba(10, 15, 35, 0.82); border: 1px solid rgba(255, 255, 255, 0.06); backdrop-filter: blur(22px); border-radius: 30px; padding: 30px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45); margin-bottom: 24px; }
+        /* Premium Brand Header */
+        .brand-header { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 40px; text-align: center; }
+        .brand-logo-frame { 
+            position: relative; width: 100px; height: 100px; 
+            border-radius: 50%; background: #0c1812; 
+            border: 2px solid #c5a059; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 2px 8px rgba(212, 175, 55, 0.2);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .brand-logo-frame img { width: 100%; height: 100%; object-fit: cover; }
         
-        .section-title { font-size: 18px; font-weight: 700; color: #cbd5e1; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-header h1 { font-size: 34px; font-weight: 700; font-family: 'Times New Roman', Times, serif; background: linear-gradient(180deg, #ffffff 0%, #dfc58d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px; }
+        .brand-header p { font-size: 13px; color: #8fa397; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; margin-top: -4px; }
 
-        /* Editable Target Input */
-        .target-setup { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); padding: 8px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
-        .target-setup label { font-size: 12px; color: #8b93b3; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
-        .target-setup input { background: transparent; border: none; color: white; font-size: 18px; font-weight: bold; width: 90px; outline: none; text-align: right;}
-        .target-setup input:focus { color: #c084fc; }
+        /* Luxury Gold-Trimmed Glass Cards */
+        .card { 
+            background: rgba(12, 24, 18, 0.75); 
+            border: 1px solid rgba(212, 175, 55, 0.15); 
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); 
+            border-radius: 24px; padding: 32px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0px rgba(255,255,255,0.05); 
+            margin-bottom: 24px; 
+        }
+        
+        .section-title { font-size: 15px; font-weight: 600; color: #dfc58d; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 12px; }
 
-        /* Rings Wrapper */
-        .rings-wrapper { position: relative; display: flex; justify-content: space-around; gap: 20px; min-height: 260px; align-items: center; flex-wrap: wrap; transition: all 0.5s ease; }
+        /* Premium Target Entry Box */
+        .target-setup { display: flex; align-items: center; gap: 10px; background: rgba(0, 0, 0, 0.4); padding: 8px 16px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); transition: border-color 0.3s; }
+        .target-setup:focus-within { border-color: #c5a059; }
+        .target-setup label { font-size: 11px; color: #8fa397; font-weight: 700; letter-spacing: 0.5px; }
+        .target-setup input { background: transparent; border: none; color: #ffffff; font-size: 16px; font-weight: 600; width: 110px; outline: none; text-align: right; }
+
+        /* Gold and Emerald Visualization Rings */
+        .rings-wrapper { position: relative; display: flex; justify-content: space-around; gap: 32px; min-height: 240px; align-items: center; flex-wrap: wrap; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         
         .ring-box {
             position: relative; display: flex; flex-direction: column; align-items: center;
-            background: rgba(255,255,255,0.02); padding: 24px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.04);
-            flex: 1; min-width: 220px; z-index: 2;
-            transition: transform 0.6s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.5s ease;
+            background: rgba(255,255,255,0.01); padding: 24px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.02);
+            flex: 1; min-width: 240px; z-index: 2; transition: all 0.5s ease;
         }
 
-        .ring-svg { width: 150px; height: 150px; transform: rotate(-90deg); }
-        .ring-track { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 12; }
-        .ring-fill { fill: none; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 377; stroke-dashoffset: 377; transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .ring-svg { width: 140px; height: 140px; transform: rotate(-90deg); filter: drop-shadow(0 0 8px rgba(0,0,0,0.3)); }
+        .ring-track { fill: none; stroke: rgba(255,255,255,0.03); stroke-width: 9; }
+        .ring-fill { fill: none; stroke-width: 9; stroke-linecap: round; stroke-dasharray: 377; stroke-dashoffset: 377; transition: stroke-dashoffset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
         
-        .ring-center-content { position: absolute; top: 99px; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
-        .ring-pct { font-size: 28px; font-weight: 800; color: white; line-height: 1; }
-        .ring-label { font-size: 13px; color: #8b93b3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; }
-        .ring-value { font-size: 16px; color: white; font-weight: bold; margin-top: 6px; }
+        .ring-center-content { position: absolute; top: 94px; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+        .ring-pct { font-size: 24px; font-weight: 700; color: #ffffff; font-family: 'Times New Roman', Times, serif; }
+        .ring-label { font-size: 12px; color: #8fa397; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 24px; }
+        .ring-value { font-size: 14px; color: #e2e8f0; font-weight: 500; margin-top: 6px; }
         
-        .highlight-blue { color: #60a5fa; }
-        .highlight-green { color: #4ade80; }
+        .highlight-gold { color: #dfc58d; font-weight: 600; }
+        .highlight-emerald { color: #52b788; font-weight: 600; }
 
-        /* SEQUENCE ANIMATION CLASSES */
-        .rings-wrapper.anim-collide #emiRingBox { transform: translateX(50%) scale(0) rotate(45deg); opacity: 0; pointer-events: none; }
-        .rings-wrapper.anim-collide #savRingBox { transform: translateX(-50%) scale(0) rotate(-45deg); opacity: 0; pointer-events: none; }
+        /* Animation Merge Sequence Engagements */
+        .rings-wrapper.anim-collide #emiRingBox { transform: translateX(40%) scale(0.1); opacity: 0; pointer-events: none; }
+        .rings-wrapper.anim-collide #savRingBox { transform: translateX(-40%) scale(0.1); opacity: 0; pointer-events: none; }
         
         .graffiti-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; }
-        .particle { position: absolute; border-radius: 4px; opacity: 0; animation: burst 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .particle { position: absolute; border-radius: 50%; opacity: 0; animation: burst 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
         @keyframes burst {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot)); opacity: 0; }
+            0% { transform: translate(0, 0) scale(1); opacity: 1; filter: blur(0px); }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; filter: blur(1px); }
         }
 
         .merged-success {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); opacity: 0; pointer-events: none;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); opacity: 0; pointer-events: none;
             display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; z-index: 10;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%); padding: 40px; border-radius: 50%;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); padding: 24px;
         }
 
-        .rings-wrapper.anim-reveal { background: rgba(74, 222, 128, 0.05); border-radius: 24px; box-shadow: inset 0 0 100px rgba(74, 222, 128, 0.1); }
+        .rings-wrapper.anim-reveal { background: rgba(82, 183, 136, 0.02); border-radius: 20px; border: 1px dashed rgba(223, 197, 141, 0.3); }
         .rings-wrapper.anim-reveal .merged-success { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
 
-        .merged-title { font-size: 20px; color: #4ade80; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(74, 222, 128, 0.5); }
-        .merged-amount { font-size: 54px; font-weight: 900; color: white; letter-spacing: -2px; margin-bottom: 10px; }
-        .merged-sub { font-size: 16px; color: #cbd5e1; font-weight: 500;}
-        .merged-highlight { color: #4ade80; font-weight: bold;}
+        .merged-title { font-size: 14px; color: #dfc58d; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .merged-amount { font-size: 48px; font-weight: 800; color: #ffffff; font-family: 'Times New Roman', Times, serif; letter-spacing: -0.5px; margin-bottom: 12px; }
+        .merged-sub { font-size: 15px; color: #8fa397; max-width: 480px; line-height: 1.6; }
+        .merged-highlight { color: #dfc58d; font-weight: 600; }
 
-        /* EMI Grid & Controls */
-        .emi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .emi-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .emi-btn:hover { background: rgba(255, 255, 255, 0.06); transform: translateY(-2px); }
-        .emi-btn.paid { background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1); }
-        .emi-month { font-size: 14px; color: #8b93b3; font-weight: 600; margin-bottom: 4px; }
-        .emi-amount { font-size: 18px; font-weight: 800; color: white; }
-        .paid-badge { position: absolute; top: -10px; right: -10px; background: #3b82f6; color: white; font-size: 10px; font-weight: bold; padding: 12px 12px 4px 4px; border-radius: 50%; transform: scale(0); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .emi-btn.paid .paid-badge { transform: scale(1); }
+        /* Luxury Asset Calendar Grid */
+        .emi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .emi-btn { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 14px; padding: 18px 14px; text-align: center; cursor: pointer; transition: all 0.25s ease; position: relative; }
+        .emi-btn:hover { background: rgba(212, 175, 55, 0.03); border-color: rgba(212, 175, 55, 0.25); transform: translateY(-1px); }
+        
+        .emi-btn.paid { background: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.4); }
+        .emi-month { font-size: 12px; color: #8fa397; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .emi-btn.paid .emi-month { color: #dfc58d; }
+        .emi-amount { font-size: 16px; font-weight: 700; color: #e2e8f0; }
+        .emi-btn.paid .emi-amount { color: #ffffff; }
+        
+        .paid-badge { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%) scale(0); background: #c5a059; color: #050a07; font-size: 9px; font-weight: 800; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid #050a07; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .emi-btn.paid .paid-badge { transform: translateX(-50%) scale(1); }
 
-        .savings-container { display: flex; gap: 15px; align-items: center; }
-        .input { flex: 1; padding: 16px 20px; border-radius: 16px; border: 1px solid rgba(74, 222, 128, 0.3); background: rgba(74, 222, 128, 0.05); color: #4ade80; font-size: 18px; font-weight: bold; outline: none; transition: 0.3s; }
-        .input::placeholder { color: rgba(74, 222, 128, 0.4); }
-        .input:focus { border-color: #4ade80; background: rgba(74, 222, 128, 0.1); }
-        .btn-add { padding: 16px 30px; border: none; border-radius: 16px; background: linear-gradient(135deg, #10b981, #059669); color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
-        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
-        .btn-reset { background: transparent; border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: 0.2s; }
-        .btn-reset:hover { background: rgba(239, 68, 68, 0.1); }
+        /* Premium Luxury Forms & Inputs */
+        .savings-container { display: flex; gap: 12px; align-items: center; }
+        .input { flex: 1; padding: 14px 18px; border-radius: 14px; border: 1px solid rgba(212,175,55,0.15); background: rgba(0,0,0,0.3); color: #ffffff; font-size: 15px; font-weight: 600; outline: none; transition: 0.2s; }
+        .input::placeholder { color: #405146; }
+        .input:focus { border-color: #c5a059; background: rgba(0,0,0,0.4); }
+        
+        .btn-add { padding: 14px 28px; border: none; border-radius: 14px; background: linear-gradient(180deg, #dfc58d 0%, #c5a059 100%); color: #050a07; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(197, 160, 89, 0.2); }
+        .btn-add:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(197, 160, 89, 0.3); }
+        .btn-reset { background: transparent; border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-reset:hover { background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.3); }
 
-        .history-list { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; max-height: 200px; overflow-y: auto; padding-right: 8px; }
-        .history-list::-webkit-scrollbar { width: 6px; }
-        .history-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
-        .history-list::-webkit-scrollbar-thumb { background: rgba(74, 222, 128, 0.3); border-radius: 10px; }
-        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .history-date { font-size: 12px; color: #8b93b3; font-weight: 600; margin-bottom: 2px; }
-        .history-amount { font-size: 15px; color: #4ade80; font-weight: bold; }
-        .delete-btn { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.2s; }
-        .delete-btn:hover { background: #ef4444; color: white; }
+        /* Secure Ledger History Streams */
+        .history-list { margin-top: 24px; display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 4px; }
+        .history-list::-webkit-scrollbar { width: 4px; }
+        .history-list::-webkit-scrollbar-track { background: transparent; }
+        .history-list::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.1); border-radius: 10px; }
+        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-radius: 12px; background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(212, 175, 55, 0.05); }
+        .history-date { font-size: 12px; color: #617368; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+        .history-amount { font-size: 14px; color: #52b788; font-weight: 700; }
+        .delete-btn { background: transparent; color: #617368; border: none; width: 24px; height: 24px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .delete-btn:hover { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
 
         @media (max-width: 768px) { .emi-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 600px) { .emi-grid { grid-template-columns: 1fr 1fr; } .savings-container { flex-direction: column; } .btn-add { width: 100%; } .target-setup { width: 100%; justify-content: space-between;} .section-title { flex-direction: column; align-items: flex-start; gap: 15px; } }
+        @media (max-width: 600px) { .emi-grid { grid-template-columns: repeat(2, 1fr); } .savings-container { flex-direction: column; } .btn-add { width: 100%; } .target-setup { width: 100%; justify-content: space-between;} .section-title { flex-direction: column; align-items: flex-start; gap: 12px; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
+    <div class="brand-header">
+        <div class="brand-logo-frame">
+            <img src="Logo.PNG" alt="Foreclosure Sniper Crest">
+        </div>
         <h1>Foreclosure Sniper</h1>
+        <p>Premium Asset Foreclosure Portfolio</p>
     </div>
 
     <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
-      <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#c084fc" />
-        <stop offset="100%" stop-color="#3b82f6" />
+      <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#c5a059" />
+        <stop offset="100%" stop-color="#dfc58d" />
       </linearGradient>
-      <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#10b981" />
-        <stop offset="100%" stop-color="#4ade80" />
+      <linearGradient id="emeraldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#2d6a4f" />
+        <stop offset="100%" stop-color="#52b788" />
       </linearGradient>
     </svg>
 
     <div class="card">
         <div class="section-title">
-            <span>Mission Dashboard</span>
+            <span>Asset Closing Metrics</span>
             <div class="target-setup">
-                <label>Closing Target: ₹</label>
+                <label>Closing Target</label>
                 <input type="number" id="closingTargetInput" value="37500" oninput="updateUI()">
             </div>
         </div>
@@ -145,46 +184,49 @@
             <div class="ring-box" id="emiRingBox">
                 <svg class="ring-svg" viewBox="0 0 140 140">
                     <circle class="ring-track" cx="70" cy="70" r="60"></circle>
-                    <circle class="ring-fill" id="emiRing" cx="70" cy="70" r="60" stroke="url(#blueGradient)"></circle>
+                    <circle class="ring-fill" id="emiRing" cx="70" cy="70" r="60" stroke="url(#goldGradient)"></circle>
                 </svg>
                 <div class="ring-center-content">
                     <div class="ring-pct" id="emiPct">0%</div>
                 </div>
-                <div class="ring-label">EMI Paid</div>
-                <div class="ring-value" id="emiText">₹0 / <span class="highlight-blue">₹0</span></div>
+                <div class="ring-label">Aggregate EMI</div>
+                <div class="ring-value" id="emiText">₹0 / <span class="highlight-gold">₹0</span></div>
             </div>
 
             <div class="ring-box" id="savRingBox">
                 <svg class="ring-svg" viewBox="0 0 140 140">
                     <circle class="ring-track" cx="70" cy="70" r="60"></circle>
-                    <circle class="ring-fill" id="savRing" cx="70" cy="70" r="60" stroke="url(#greenGradient)"></circle>
+                    <circle class="ring-fill" id="savRing" cx="70" cy="70" r="60" stroke="url(#emeraldGradient)"></circle>
                 </svg>
                 <div class="ring-center-content">
                     <div class="ring-pct" id="savPct">0%</div>
                 </div>
-                <div class="ring-label">Secret Stash</div>
-                <div class="ring-value" id="savingsText">₹0 / <span class="highlight-green">₹60,000</span></div>
+                <div class="ring-label">Capital Reserve</div>
+                <div class="ring-value" id="savingsText">₹0 / <span class="highlight-emerald">₹60,000</span></div>
             </div>
 
             <div class="merged-success">
-                <div class="merged-title">Target Locked. Foreclose Now.</div>
+                <div class="merged-title">Strategic Foreclosure Target Balanced</div>
                 <div class="merged-amount" id="finalPayAmount">₹0</div>
-                <div class="merged-sub">Pay this exact amount from your <span class="merged-highlight" id="finalStashAmount">₹0</span> stash to kill the loan completely!</div>
+                <div class="merged-sub">Settle this net balance from your total saved reserve of <span class="merged-highlight" id="finalStashAmount">₹0</span> to close this liability completely.</div>
             </div>
 
         </div>
     </div>
 
     <div class="card">
-        <div class="section-title">12-Month EMI Checklist</div>
+        <div class="section-title">12-Month Fiscal Schedule Tracker</div>
         <div class="emi-grid" id="emiGrid"></div>
     </div>
 
     <div class="card">
-        <div class="section-title">Deposit to Secret Stash <button class="btn-reset" onclick="resetSavings()">Wipe History</button></div>
+        <div class="section-title">
+            <span>Capital Reserve Ledger</span>
+            <button class="btn-reset" onclick="resetSavings()">Purge Records</button>
+        </div>
         <div class="savings-container">
-            <input type="number" id="savingsInput" class="input" placeholder="₹ Enter saved amount...">
-            <button class="btn-add" onclick="addSavings()">Add to Stash</button>
+            <input type="number" id="savingsInput" class="input" placeholder="₹ Enter funding to allocate to ledger...">
+            <button class="btn-add" onclick="addSavings()">Commit Funds</button>
         </div>
         <div class="history-list" id="historyList"></div>
     </div>
@@ -197,9 +239,8 @@
     const VISUAL_SAVINGS_TARGET = 60000; 
     const CIRCLE_CIRCUMFERENCE = 377; 
 
-    // Dynamic month names generation starting Aug 2026
     const START_YEAR = 2026;
-    const START_MONTH_INDEX = 7; // August (0-indexed where Jan=0, Feb=1... Aug=7)
+    const START_MONTH_INDEX = 7; 
 
     let emiState = JSON.parse(localStorage.getItem('sniperEmiState')) || Array(TOTAL_EMIS).fill(false);
     if (emiState.length !== TOTAL_EMIS) {
@@ -222,11 +263,10 @@
         grid.innerHTML = '';
         
         emiState.forEach((isPaid, index) => {
-            // Logic to calculate specific months dynamically starting from Aug-2026
             let date = new Date(START_YEAR, START_MONTH_INDEX + index, 1);
             let monthStr = date.toLocaleString('en-US', { month: 'short' });
             let yearStr = date.getFullYear();
-            let label = `${monthStr}-${yearStr}`; // E.g., Aug-2026, Sept-2026
+            let label = `${monthStr}-${yearStr}`;
 
             const btn = document.createElement('div');
             btn.className = `emi-btn ${isPaid ? 'paid' : ''}`;
@@ -241,6 +281,14 @@
         localStorage.setItem('sniperEmiState', JSON.stringify(emiState));
         updateUI();
         renderEmiButtons();
+    }
+
+    // Service Worker logic for proper webapp performance
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGU9PntlLmNlc3BvbmRXaXRoKGZldGNoKGUucmVxdWVzdCkpfSk7')
+            .catch(err => console.log("Service Worker registration skipped", err));
+        });
     }
 
     function addSavings() {
@@ -261,7 +309,7 @@
     }
 
     function resetSavings() {
-        if(confirm("Are you sure you want to wipe your entire savings history?")) {
+        if(confirm("Confirm complete deletion of tracked reserve records history?")) {
             savingsHistory = [];
             localStorage.setItem('sniperSavingsHistory', JSON.stringify(savingsHistory));
             updateUI();
@@ -271,22 +319,20 @@
     function fireGraffitiBurst() {
         const container = document.getElementById('graffitiBox');
         container.innerHTML = '';
-        const colors = ['#4ade80', '#c084fc', '#60a5fa', '#f472b6', '#facc15'];
+        const colors = ['#dfc58d', '#c5a059', '#52b788', '#2d6a4f'];
         
-        for(let i=0; i<40; i++) {
+        for(let i=0; i<45; i++) {
             let p = document.createElement('div');
             p.className = 'particle';
             let angle = Math.random() * Math.PI * 2;
-            let distance = 50 + Math.random() * 150;
+            let distance = 40 + Math.random() * 120;
             p.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
             p.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
-            p.style.setProperty('--rot', (Math.random() * 360) + 'deg');
             
-            let size = 5 + Math.random() * 15;
+            let size = 2 + Math.random() * 6;
             p.style.width = size + 'px';
             p.style.height = size + 'px';
             p.style.background = colors[Math.floor(Math.random() * colors.length)];
-            if(Math.random() > 0.5) p.style.borderRadius = '50%'; 
             
             container.appendChild(p);
         }
@@ -323,12 +369,12 @@
 
         const emiPercentage = Math.min((totalEmiPaid / TARGET_EMI_TOTAL) * 100, 100);
         document.getElementById('emiPct').innerText = `${Math.round(emiPercentage)}%`;
-        document.getElementById('emiText').innerHTML = `₹${totalEmiPaid.toLocaleString('en-IN')} / <span class="highlight-blue">₹${TARGET_EMI_TOTAL.toLocaleString('en-IN')}</span>`;
+        document.getElementById('emiText').innerHTML = `₹${totalEmiPaid.toLocaleString('en-IN')} / <span class="highlight-gold">₹${TARGET_EMI_TOTAL.toLocaleString('en-IN')}</span>`;
         document.getElementById('emiRing').style.strokeDashoffset = CIRCLE_CIRCUMFERENCE - (emiPercentage / 100) * CIRCLE_CIRCUMFERENCE;
 
         const savingsPercentage = Math.min((totalSavings / VISUAL_SAVINGS_TARGET) * 100, 100);
         document.getElementById('savPct').innerText = `${Math.round(savingsPercentage)}%`;
-        document.getElementById('savingsText').innerHTML = `₹${totalSavings.toLocaleString('en-IN')} / <span class="highlight-green">₹${VISUAL_SAVINGS_TARGET.toLocaleString('en-IN')}</span>`;
+        document.getElementById('savingsText').innerHTML = `₹${totalSavings.toLocaleString('en-IN')} / <span class="highlight-emerald">₹${VISUAL_SAVINGS_TARGET.toLocaleString('en-IN')}</span>`;
         document.getElementById('savRing').style.strokeDashoffset = CIRCLE_CIRCUMFERENCE - (savingsPercentage / 100) * CIRCLE_CIRCUMFERENCE;
 
         const historyContainer = document.getElementById('historyList');
@@ -337,7 +383,7 @@
         reversedHistory.forEach(item => {
             const div = document.createElement('div');
             div.className = 'history-item';
-            div.innerHTML = `<div><div class="history-date">${new Date(item.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</div><div class="history-amount">+ ₹${item.amount.toLocaleString('en-IN')}</div></div><button class="delete-btn" onclick="deleteHistoryItem(${item.id})">×</button>`;
+            div.innerHTML = `<div><div class="history-date">${new Date(item.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</div><div class="history-amount">+ ₹${item.amount.toLocaleString('en-IN')}</div></div><button class="delete-btn" onclick="deleteHistoryItem(${item.id})">×</button>`;
             historyContainer.appendChild(div);
         });
     }
