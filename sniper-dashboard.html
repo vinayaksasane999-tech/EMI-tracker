@@ -191,16 +191,18 @@
 </div>
 
 <script>
-    const EMI_AMOUNT = 3784; // Update 1: Set per month EMI to 3784
-    const TOTAL_EMIS = 12; // Update 2: Increased from 6 to 12 rows/buttons
+    const EMI_AMOUNT = 3784; 
+    const TOTAL_EMIS = 12; 
     const TARGET_EMI_TOTAL = EMI_AMOUNT * TOTAL_EMIS; 
-    const VISUAL_SAVINGS_TARGET = 60000; // Update 3: Stash goal adjusted to 60,000
+    const VISUAL_SAVINGS_TARGET = 60000; 
     const CIRCLE_CIRCUMFERENCE = 377; 
 
-    // Handle initial state length configuration for 12 checkboxes dynamically
+    // Dynamic month names generation starting Aug 2026
+    const START_YEAR = 2026;
+    const START_MONTH_INDEX = 7; // August (0-indexed where Jan=0, Feb=1... Aug=7)
+
     let emiState = JSON.parse(localStorage.getItem('sniperEmiState')) || Array(TOTAL_EMIS).fill(false);
     if (emiState.length !== TOTAL_EMIS) {
-        // Keeps old data if expanding array safely
         while(emiState.length < TOTAL_EMIS) emiState.push(false);
         emiState = emiState.slice(0, TOTAL_EMIS);
     }
@@ -218,11 +220,18 @@
     function renderEmiButtons() {
         const grid = document.getElementById('emiGrid');
         grid.innerHTML = '';
+        
         emiState.forEach((isPaid, index) => {
+            // Logic to calculate specific months dynamically starting from Aug-2026
+            let date = new Date(START_YEAR, START_MONTH_INDEX + index, 1);
+            let monthStr = date.toLocaleString('en-US', { month: 'short' });
+            let yearStr = date.getFullYear();
+            let label = `${monthStr}-${yearStr}`; // E.g., Aug-2026, Sept-2026
+
             const btn = document.createElement('div');
             btn.className = `emi-btn ${isPaid ? 'paid' : ''}`;
             btn.onclick = () => toggleEmi(index);
-            btn.innerHTML = `<div class="paid-badge">✓</div><div class="emi-month">Month ${index + 1}</div><div class="emi-amount">₹${EMI_AMOUNT.toLocaleString('en-IN')}</div>`;
+            btn.innerHTML = `<div class="paid-badge">✓</div><div class="emi-month">${label}</div><div class="emi-amount">₹${EMI_AMOUNT.toLocaleString('en-IN')}</div>`;
             grid.appendChild(btn);
         });
     }
