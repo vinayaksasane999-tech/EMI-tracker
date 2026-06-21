@@ -53,11 +53,9 @@
         .highlight-green { color: #4ade80; }
 
         /* SEQUENCE ANIMATION CLASSES */
-        /* 1. The Smash (Rings shrink and disappear into the center) */
         .rings-wrapper.anim-collide #emiRingBox { transform: translateX(50%) scale(0) rotate(45deg); opacity: 0; pointer-events: none; }
         .rings-wrapper.anim-collide #savRingBox { transform: translateX(-50%) scale(0) rotate(-45deg); opacity: 0; pointer-events: none; }
         
-        /* 2. Graffiti Burst Container */
         .graffiti-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; }
         .particle { position: absolute; border-radius: 4px; opacity: 0; animation: burst 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         
@@ -66,7 +64,6 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* 3. Final Merged Success State */
         .merged-success {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); opacity: 0; pointer-events: none;
             display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; z-index: 10;
@@ -83,12 +80,12 @@
         .merged-highlight { color: #4ade80; font-weight: bold;}
 
         /* EMI Grid & Controls */
-        .emi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .emi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
         .emi-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .emi-btn:hover { background: rgba(255, 255, 255, 0.06); transform: translateY(-2px); }
         .emi-btn.paid { background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1); }
         .emi-month { font-size: 14px; color: #8b93b3; font-weight: 600; margin-bottom: 4px; }
-        .emi-amount { font-size: 20px; font-weight: 800; color: white; }
+        .emi-amount { font-size: 18px; font-weight: 800; color: white; }
         .paid-badge { position: absolute; top: -10px; right: -10px; background: #3b82f6; color: white; font-size: 10px; font-weight: bold; padding: 12px 12px 4px 4px; border-radius: 50%; transform: scale(0); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .emi-btn.paid .paid-badge { transform: scale(1); }
 
@@ -111,6 +108,7 @@
         .delete-btn { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.2s; }
         .delete-btn:hover { background: #ef4444; color: white; }
 
+        @media (max-width: 768px) { .emi-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 600px) { .emi-grid { grid-template-columns: 1fr 1fr; } .savings-container { flex-direction: column; } .btn-add { width: 100%; } .target-setup { width: 100%; justify-content: space-between;} .section-title { flex-direction: column; align-items: flex-start; gap: 15px; } }
     </style>
 </head>
@@ -153,7 +151,7 @@
                     <div class="ring-pct" id="emiPct">0%</div>
                 </div>
                 <div class="ring-label">EMI Paid</div>
-                <div class="ring-value" id="emiText">₹0 / <span class="highlight-blue">₹18,408</span></div>
+                <div class="ring-value" id="emiText">₹0 / <span class="highlight-blue">₹0</span></div>
             </div>
 
             <div class="ring-box" id="savRingBox">
@@ -165,7 +163,7 @@
                     <div class="ring-pct" id="savPct">0%</div>
                 </div>
                 <div class="ring-label">Secret Stash</div>
-                <div class="ring-value" id="savingsText">₹0 / <span class="highlight-green">₹18,300</span></div>
+                <div class="ring-value" id="savingsText">₹0 / <span class="highlight-green">₹60,000</span></div>
             </div>
 
             <div class="merged-success">
@@ -178,7 +176,7 @@
     </div>
 
     <div class="card">
-        <div class="section-title">6-Month EMI Checklist</div>
+        <div class="section-title">12-Month EMI Checklist</div>
         <div class="emi-grid" id="emiGrid"></div>
     </div>
 
@@ -193,15 +191,22 @@
 </div>
 
 <script>
-    const EMI_AMOUNT = 3068;
-    const TOTAL_EMIS = 6;
+    const EMI_AMOUNT = 3784; // Update 1: Set per month EMI to 3784
+    const TOTAL_EMIS = 12; // Update 2: Increased from 6 to 12 rows/buttons
     const TARGET_EMI_TOTAL = EMI_AMOUNT * TOTAL_EMIS; 
-    const VISUAL_SAVINGS_TARGET = 18300; 
+    const VISUAL_SAVINGS_TARGET = 60000; // Update 3: Stash goal adjusted to 60,000
     const CIRCLE_CIRCUMFERENCE = 377; 
 
-    let emiState = JSON.parse(localStorage.getItem('sniperEmiState')) || [false, false, false, false, false, false];
+    // Handle initial state length configuration for 12 checkboxes dynamically
+    let emiState = JSON.parse(localStorage.getItem('sniperEmiState')) || Array(TOTAL_EMIS).fill(false);
+    if (emiState.length !== TOTAL_EMIS) {
+        // Keeps old data if expanding array safely
+        while(emiState.length < TOTAL_EMIS) emiState.push(false);
+        emiState = emiState.slice(0, TOTAL_EMIS);
+    }
+
     let savingsHistory = JSON.parse(localStorage.getItem('sniperSavingsHistory')) || [];
-    let hasMerged = false; // Tracks if animation already played
+    let hasMerged = false;
 
     function init() {
         const savedTarget = localStorage.getItem('sniperClosingTarget');
@@ -254,7 +259,6 @@
         }
     }
 
-    // Generates the Graffiti Particle Burst
     function fireGraffitiBurst() {
         const container = document.getElementById('graffitiBox');
         container.innerHTML = '';
@@ -263,19 +267,17 @@
         for(let i=0; i<40; i++) {
             let p = document.createElement('div');
             p.className = 'particle';
-            // Random scatter directions
             let angle = Math.random() * Math.PI * 2;
             let distance = 50 + Math.random() * 150;
             p.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
             p.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
             p.style.setProperty('--rot', (Math.random() * 360) + 'deg');
             
-            // Random sizes and shapes
             let size = 5 + Math.random() * 15;
             p.style.width = size + 'px';
             p.style.height = size + 'px';
             p.style.background = colors[Math.floor(Math.random() * colors.length)];
-            if(Math.random() > 0.5) p.style.borderRadius = '50%'; // mix circles and squares
+            if(Math.random() > 0.5) p.style.borderRadius = '50%'; 
             
             container.appendChild(p);
         }
@@ -291,20 +293,11 @@
         const remainingLoan = closingTarget - totalEmiPaid;
         const ringsWrapper = document.getElementById('ringsWrapper');
         
-        // --- ANIMATION SEQUENCE LOGIC ---
         if ((totalSavings + totalEmiPaid) >= closingTarget && closingTarget > 0) {
             if(!hasMerged) {
                 hasMerged = true;
-                
-                // Step 1: The Smash (Rings shrink and move to center)
                 ringsWrapper.classList.add('anim-collide');
-                
-                // Step 2: The Graffiti Burst (Fires right as they hit)
-                setTimeout(() => {
-                    fireGraffitiBurst();
-                }, 400);
-
-                // Step 3: The Reveal (Message fades in after rings are gone)
+                setTimeout(() => { fireGraffitiBurst(); }, 400);
                 setTimeout(() => {
                     document.getElementById('finalPayAmount').innerText = `₹${Math.max(0, remainingLoan).toLocaleString('en-IN')}`;
                     document.getElementById('finalStashAmount').innerText = `₹${totalSavings.toLocaleString('en-IN')}`;
@@ -312,15 +305,13 @@
                 }, 800);
             }
         } else {
-            // Reset everything if numbers drop below target
             if(hasMerged) {
                 hasMerged = false;
                 ringsWrapper.classList.remove('anim-collide', 'anim-reveal');
-                document.getElementById('graffitiBox').innerHTML = ''; // clear particles
+                document.getElementById('graffitiBox').innerHTML = ''; 
             }
         }
 
-        // --- UPDATE RINGS (Visible when not merged) ---
         const emiPercentage = Math.min((totalEmiPaid / TARGET_EMI_TOTAL) * 100, 100);
         document.getElementById('emiPct').innerText = `${Math.round(emiPercentage)}%`;
         document.getElementById('emiText').innerHTML = `₹${totalEmiPaid.toLocaleString('en-IN')} / <span class="highlight-blue">₹${TARGET_EMI_TOTAL.toLocaleString('en-IN')}</span>`;
@@ -331,7 +322,6 @@
         document.getElementById('savingsText').innerHTML = `₹${totalSavings.toLocaleString('en-IN')} / <span class="highlight-green">₹${VISUAL_SAVINGS_TARGET.toLocaleString('en-IN')}</span>`;
         document.getElementById('savRing').style.strokeDashoffset = CIRCLE_CIRCUMFERENCE - (savingsPercentage / 100) * CIRCLE_CIRCUMFERENCE;
 
-        // --- UPDATE HISTORY ---
         const historyContainer = document.getElementById('historyList');
         historyContainer.innerHTML = '';
         const reversedHistory = [...savingsHistory].reverse();
