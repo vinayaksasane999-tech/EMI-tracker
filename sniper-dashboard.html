@@ -27,7 +27,6 @@
 
         .container { max-width: 800px; width: 100%; margin-top: 20px; }
 
-        /* Centered Header incorporating your custom logo image seamlessly */
         .header { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 20px; text-align: center; }
         .logo-frame {
             width: 90px; height: 90px; border-radius: 50%; overflow: hidden;
@@ -41,13 +40,11 @@
         
         .section-title { font-size: 18px; font-weight: 700; color: #cbd5e1; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
 
-        /* Editable Target Input */
         .target-setup { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); padding: 8px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
         .target-setup label { font-size: 12px; color: #8b93b3; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
         .target-setup input { background: transparent; border: none; color: white; font-size: 18px; font-weight: bold; width: 90px; outline: none; text-align: right;}
         .target-setup input:focus { color: #c084fc; }
 
-        /* Rings Wrapper */
         .rings-wrapper { position: relative; display: flex; justify-content: space-around; gap: 20px; min-height: 260px; align-items: center; flex-wrap: wrap; transition: all 0.5s ease; }
         
         .ring-box {
@@ -64,12 +61,11 @@
         .ring-center-content { position: absolute; top: 99px; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
         .ring-pct { font-size: 28px; font-weight: 800; color: white; line-height: 1; }
         .ring-label { font-size: 13px; color: #8b93b3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; }
-        .ring-value { font-size: 16px; color: white; font-weight: bold; margin-top: 6px; }
+        .ring-value { font-size: 14px; color: white; font-weight: bold; margin-top: 6px; text-align: center; line-height: 1.4; }
         
         .highlight-blue { color: #60a5fa; }
         .highlight-green { color: #4ade80; }
 
-        /* SEQUENCE ANIMATION CLASSES */
         .rings-wrapper.anim-collide #emiRingBox { transform: translateX(50%) scale(0) rotate(45deg); opacity: 0; pointer-events: none; }
         .rings-wrapper.anim-collide #savRingBox { transform: translateX(-40%) scale(0) rotate(-45deg); opacity: 0; pointer-events: none; }
         
@@ -96,13 +92,13 @@
         .merged-sub { font-size: 16px; color: #cbd5e1; font-weight: 500;}
         .merged-highlight { color: #4ade80; font-weight: bold;}
 
-        /* EMI Grid Layout (Clean 4-column block layout for 12 months) */
         .emi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .emi-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .emi-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .emi-btn:hover { background: rgba(255, 255, 255, 0.06); transform: translateY(-2px); }
         .emi-btn.paid { background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1); }
         .emi-month { font-size: 13px; color: #8b93b3; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .emi-amount { font-size: 18px; font-weight: 800; color: white; }
+        .emi-amount { font-size: 18px; font-weight: 800; color: white; margin-bottom: 2px;}
+        .emi-principal-sub { font-size: 11px; color: #8b93b3; font-style: italic; }
         .paid-badge { position: absolute; top: -10px; right: -10px; background: #3b82f6; color: white; font-size: 10px; font-weight: bold; padding: 12px 12px 4px 4px; border-radius: 50%; transform: scale(0); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .emi-btn.paid .paid-badge { transform: scale(1); }
 
@@ -155,7 +151,7 @@
             <span>Mission Dashboard</span>
             <div class="target-setup">
                 <label>Closing Target: ₹</label>
-                <input type="number" id="closingTargetInput" value="37500" oninput="updateUI()">
+                <input type="number" id="closingTargetInput" value="78208" oninput="updateUI()">
             </div>
         </div>
         
@@ -170,7 +166,7 @@
                 <div class="ring-center-content">
                     <div class="ring-pct" id="emiPct">0%</div>
                 </div>
-                <div class="ring-label">EMI Paid</div>
+                <div class="ring-label">Principal Cleared</div>
                 <div class="ring-value" id="emiText">₹0 / <span class="highlight-blue">₹0</span></div>
             </div>
 
@@ -196,7 +192,7 @@
     </div>
 
     <div class="card">
-        <div class="section-title">12-Month EMI Checklist</div>
+        <div class="section-title">First 12 Months EMI Checklist</div>
         <div class="emi-grid" id="emiGrid"></div>
     </div>
 
@@ -211,14 +207,32 @@
 </div>
 
 <script>
-    const EMI_AMOUNT = 3784; 
-    const TOTAL_EMIS = 12; 
-    const TARGET_EMI_TOTAL = EMI_AMOUNT * TOTAL_EMIS; 
-    const VISUAL_SAVINGS_TARGET = 60000; 
+    const EMI_AMOUNT = 3810; 
+    const TOTAL_EMIS = 12; // Out of the 24 months, tracking first 12
     const CIRCLE_CIRCUMFERENCE = 377; 
 
     const START_YEAR = 2026;
     const START_MONTH_INDEX = 7; 
+
+    // Precise monthly principal tracking array mapped to your Rs. 78,208 reducing balance loan
+    const MONTHLY_PRINCIPALS = [
+        2833.05, // Month 1
+        2868.44, // Month 2
+        2904.27, // Month 3
+        2940.55, // Month 4
+        2977.28, // Month 5
+        3014.47, // Month 6
+        3052.12, // Month 7
+        3090.25, // Month 8
+        3128.85, // Month 9
+        3167.93, // Month 10
+        3207.50, // Month 11
+        3247.57  // Month 12
+    ];
+
+    // Compute total targeted principal to track for these 12 months
+    const TARGET_PRINCIPAL_TOTAL = MONTHLY_PRINCIPALS.reduce((a, b) => a + b, 0);
+    const VISUAL_SAVINGS_TARGET = 60000; 
 
     let emiState = JSON.parse(localStorage.getItem('sniperEmiState')) || Array(TOTAL_EMIS).fill(false);
     if (emiState.length !== TOTAL_EMIS) {
@@ -245,11 +259,17 @@
             let monthStr = date.toLocaleString('en-US', { month: 'short' });
             let yearStr = date.getFullYear();
             let label = `${monthStr}-${yearStr}`;
+            let principalForThisMonth = MONTHLY_PRINCIPALS[index];
 
             const btn = document.createElement('div');
             btn.className = `emi-btn ${isPaid ? 'paid' : ''}`;
             btn.onclick = () => toggleEmi(index);
-            btn.innerHTML = `<div class="paid-badge">✓</div><div class="emi-month">${label}</div><div class="emi-amount">₹${EMI_AMOUNT.toLocaleString('en-IN')}</div>`;
+            btn.innerHTML = `
+                <div class="paid-badge">✓</div>
+                <div class="emi-month">${label}</div>
+                <div class="emi-amount">₹${EMI_AMOUNT.toLocaleString('en-IN')}</div>
+                <div class="emi-principal-sub">P: ₹${Math.round(principalForThisMonth).toLocaleString('en-IN')}</div>
+            `;
             grid.appendChild(btn);
         });
     }
@@ -318,22 +338,29 @@
     }
 
     function updateUI() {
-        const closingTarget = parseFloat(document.getElementById('closingTargetInput').value) || 37500;
+        const closingTarget = parseFloat(document.getElementById('closingTargetInput').value) || 78208;
         localStorage.setItem('sniperClosingTarget', closingTarget); 
 
-        const totalEmiPaid = emiState.filter(paid => paid).length * EMI_AMOUNT;
+        // Calculate only the principal paid based on selected months
+        let totalPrincipalPaid = 0;
+        emiState.forEach((isPaid, index) => {
+            if (isPaid) {
+                totalPrincipalPaid += MONTHLY_PRINCIPALS[index];
+            }
+        });
+
         const totalSavings = savingsHistory.reduce((sum, item) => sum + item.amount, 0);
-        
-        const remainingLoan = closingTarget - totalEmiPaid;
+        const remainingLoan = closingTarget - totalPrincipalPaid;
         const ringsWrapper = document.getElementById('ringsWrapper');
         
-        if ((totalSavings + totalEmiPaid) >= closingTarget && closingTarget > 0) {
+        // Match condition logic using principal paid + stash savings against target
+        if ((totalSavings + totalPrincipalPaid) >= closingTarget && closingTarget > 0) {
             if(!hasMerged) {
                 hasMerged = true;
                 ringsWrapper.classList.add('anim-collide');
                 setTimeout(() => { fireGraffitiBurst(); }, 400);
                 setTimeout(() => {
-                    document.getElementById('finalPayAmount').innerText = `₹${Math.max(0, remainingLoan).toLocaleString('en-IN')}`;
+                    document.getElementById('finalPayAmount').innerText = `₹${Math.max(0, Math.round(remainingLoan)).toLocaleString('en-IN')}`;
                     document.getElementById('finalStashAmount').innerText = `₹${totalSavings.toLocaleString('en-IN')}`;
                     ringsWrapper.classList.add('anim-reveal');
                 }, 800);
@@ -346,9 +373,9 @@
             }
         }
 
-        const emiPercentage = Math.min((totalEmiPaid / TARGET_EMI_TOTAL) * 100, 100);
+        const emiPercentage = Math.min((totalPrincipalPaid / TARGET_PRINCIPAL_TOTAL) * 100, 100);
         document.getElementById('emiPct').innerText = `${Math.round(emiPercentage)}%`;
-        document.getElementById('emiText').innerHTML = `₹${totalEmiPaid.toLocaleString('en-IN')} / <span class="highlight-blue">₹${TARGET_EMI_TOTAL.toLocaleString('en-IN')}</span>`;
+        document.getElementById('emiText').innerHTML = `₹${Math.round(totalPrincipalPaid).toLocaleString('en-IN')} / <span class="highlight-blue">₹${Math.round(TARGET_PRINCIPAL_TOTAL).toLocaleString('en-IN')}</span><br><span style="font-size:11px;color:#8b93b3;">(Principal Component Only)</span>`;
         document.getElementById('emiRing').style.strokeDashoffset = CIRCLE_CIRCUMFERENCE - (emiPercentage / 100) * CIRCLE_CIRCUMFERENCE;
 
         const savingsPercentage = Math.min((totalSavings / VISUAL_SAVINGS_TARGET) * 100, 100);
